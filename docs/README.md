@@ -4,6 +4,7 @@
 * Javier Andres Africano Pachón - 1193381320
 * David Ricardo Lugo Venegas - 1075872618
 
+
 # TRABAJO FINAL
 
 Se ejecuta una serie de actividades o “paquetes de trabajos” que tienen como  línea de enfoque  permitirnos desarrollar una cámara digital en su esencia más simple ayudados de herramientas tales como una tarjeta programable (Nexys 4 - FPGA),  Arduino y una cámara OV7670.
