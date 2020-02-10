@@ -9,13 +9,14 @@
 Se ejecuta una serie de actividades o “paquetes de trabajos” que tienen como  línea de enfoque  permitirnos desarrollar una cámara digital en su esencia más simple ayudados de herramientas tales como una tarjeta programable (Nexys 4 - FPGA),  Arduino y una cámara OV7670.
 
 
-### Planteamiento del Problema
+## Planteamiento del Problema
 Realizar la síntesis de hardware (ayudados por la aplicación Xilinx) para recibir los datos de la cámara OV7670 con el protocolo I2C,  decodificarlos y proyectarlos en una pantalla con el estándar de video VGA. 
 
-### Objetivos
+## Objetivos
 Lograr la visualización en una pantalla con entrada VGA de una foto tomada por la cámara OV7670, haciendo uso de una FPGA y su respectivo código en Verilog.
 Diseñar y crear un módulo de captura de la cámara que se encargue de recibir los datos de la imagen de la cámara, adecuarlos de formato RGB 565 a RGB 332, y guardarlos en la memoria RAM Dual Port
 Configurar los registros de la la cámara OV7670, haciendo uso de una tarjeta programable Arduino, ajustando correctamente sus parámetros de escalado (Formato CIF) y formato del pixel (RGB 565).
+
 ### Elementos de Trabajo
 #### Hardware
 * Tarjeta Nexys-4 (500) - FPGA: Artix 7
@@ -32,8 +33,6 @@ Configurar los registros de la la cámara OV7670, haciendo uso de una tarjeta pr
 
 Haciendo uso de una cámara y una tarjeta programable, la cual a partir de una señal de botón controlada por el usuario, realiza captura de una imagen de 320 x 240 pixeles de resolución, que se puede visualizar en una pantalla con conexión VGA, donde si dicho botón es oprimido por el usuario continuamente, la toma de imagen de igual manera se realiza constante dando opción de visualizar video en dicha pantalla.
 
-
-
 ### Camara OV7670
 
 El módulo de cámara OV7670 está basado en el sensor OV7670 de omnivision. Es capaz de generar un máximo de 30 cuadros por segundo a una resolución de 640×480 pixeles (VGA). El OV7670 es un sistema en chip (SoC) por lo que además de ser un sensor de imagen, en su interior también encontramos circuitos destinados al procesamiento de la imagen capturada, por esta razón los procesos de control se realizan en el propio chip. Los parámetros de la cámara pueden configurarse a través del bus SCCB (Serial Camera Control Bus).En nuestro caso fue necesario modificar el parámetro com 7 en un valor de “0x24” para generar una imagen de tamaño 320x240  con formato RGB.
@@ -49,8 +48,6 @@ VSYNC: Señal de sincronización vertical de la cámara.
 HREF: Señal de sincronización horizontal de la cámara.
 PCLK: Reloj para sincronización con la cámara.
 [7:0] D: Datos de salida de la cámara.
-
-
 
 ### Módulo de Captura
 
@@ -79,11 +76,6 @@ Reloj 100Mhz: reloj de la tarjeta nexys 4.
 SALIDAS:
 Reloj 24Mhz:Señal de reloj para sincronizar la escritura.
 Reloj 25Mhz:Señal de reloj para sincronizar la lectura.
-
-
-
-
-
 
 ### Dual Port RAM
 
@@ -121,8 +113,7 @@ VGA_pos_X y VGA_pos_X: valores codificados de la posicion del pixel que se quier
 data_RGB322: Módulo que envía el valor del pixel en formato RGB322 al periférico de conversión de formato RGB322 to RGB444, donde este último envía el valor del pixel a la pantalla.
 VGA_hsync_n y VGA_Vsync_n: señal de sincronizacion entre el módulo VGA640x480 y la pantalla.
 
-[Describa a detalle cómo está estructurado el producto final]
-Funcionamiento
+## Funcionamiento
 El proyecto final lleva a cabo el proceso de captura, guardado en memoria y envío de los datos a la salida VGA, haciendo uso de diferentes procesos que se llevan a cabo en cada uno de los respectivos módulos.
 
 ### Generador de Reloj
@@ -130,6 +121,8 @@ El módulo de generación de reloj, se encarga de recibir la señal de reloj nat
 
 ### Módulo de captura
 El funcionamiento de la cámara es independiente del proceso de captura, es precisamente para eso que fue creado este módulo. El módulo de captura se mantiene en estado inactivo mientras que la señal de Cbtn se mantiene en bajo. Al momento de recibir un alto, el módulo pasa a un estado de espera, a recibir un alto en VSync, en ese momento los registros para la señal de adress se resetean, y esperan a la bajada de VSync. Una vez pase esto, se esperará a una señal de Href, para capturar los bits correspondientes a Rojo y Verde, añadir 1 al conteo de Address, y mantener Regwrite en bajo, espera un ciclo de reloj para luego capturar los datos de los bits correspondientes a Azul, y enviar un alto a la señal de Regwrite. Este proceso se repite cíclicamente siempre y cuando Href se encuentre en alto. Finalmente, si en el estado de esperar a un alto de Href, recibe un alto de Vsync, este vuelve a estado inactivo y finaliza la captura de una imagen completa. Nótese que el método de captura no depende de las dimensiones de la imagen.
-Desarrollo
+
+## Desarrollo
 Durante todo el semestre se realizaron varias actividades que nos ayudaron a familiarizarnos con el entorno ISE xilinx herramienta con la cual aprendimos a sintetizamos hardware. Debido a que el profesor dividió el proyecto en paquetes de trabajo nos permitió  verla funcionalidad y por tanto el avance del proyecto en tiempo real, lo que significa que el paso a paso se convirtió en un mejor entendimiento del proyecto. Para realizar el módulo de captura de datos fue indispensable entender el diagrama de tiempo de las salidas de la cámara y contrastarlas con la funcionalidad de simulación en la aplicación de ISE.
-[Esta sección debe incluir todo lo relacionado con cómo trabajamos el proyecto. Este debe incluir las fuentes de documentación consultada, el diseño inicial, pruebas relacionadas, y las problemáticas presentadas hasta la conclusión del proyecto.]
+
+
