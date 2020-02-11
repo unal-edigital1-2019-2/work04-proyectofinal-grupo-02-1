@@ -1,4 +1,4 @@
-#include <Wire.h>
+﻿#include <Wire.h>
 
 #define OV7670_I2C_ADDRESS 0x21 /*Dirección del bus i2c para ña camara*/
 
@@ -6,92 +6,60 @@
 void setup() {
   Wire.begin();
   Serial.begin(9600);  
-  Serial.println("prueba estado actual");
-  get_cam_register();
-  
-  set_cam_RGB565_QCIF();
+  Serial.println("prueba");
+  // get_cam_register();
+  set_cam_RGB565_QVGA();
+  //  set_color_matrix();
   delay(100);
-  Serial.println("Despues de config");
   get_cam_register();
   
 }
 
 
-void set_cam_RGB565_QCIF(){
+void set_cam_RGB565_QVGA(){
+
+ // get_cam_register();
    
-  OV7670_write(0x12, 0x80);
+  OV7670_write(0x12, 0x80);       //COM7: Reset
+
+ // get_cam_register();
 
   delay(100);
- 
- OV7670_write(0x12, 0x0C);  //COM7: Set QCIF and RGB
- OV7670_write(0x11, 0xC0);       //CLKR: Set internal clock to use external clock
- OV7670_write(0x0C, 0x08);       //COM3: Enable Scaler
- OV7670_write(0x3E, 0x00);
- OV7670_write(0x40,0xD0);      //COM15: Set RGB 565
 
- //Color Bar
- //OV7670_write(0x42, 0x08); 
- //OV7670_write(0x12, 0x0E);
+  OV7670_write(0x12, 0x024);      //COM7: Set CIF and RGB
+  OV7670_write(0x11, 0xC0);       //CLKR: Set internal clock to use external clock    
+  OV7670_write(0x0C, 0x08);       //COM3: Enable Scaler   
+  OV7670_write(0x40,0xD0);        //COM15: Set RGB 565  
+  
+  OV7670_write(0x42,0x00);        
+  OV7670_write(0x14,0x0B);       
+  OV7670_write(0x3E, 0x00);       //Enable Scaling for Predefined Formats using COM14
 
 
- OV7670_write(0x3A,0x04);
- OV7670_write(0x14,0x18); // control de ganancia 
+/*prubas de ferney*/
 
- OV7670_write(0x17,0x14);  //cambia hstart
- OV7670_write(0x18,0x02);  // cambia hstop
- OV7670_write(0x32,0x80);  // href deja el valor qye  viene por default
- OV7670_write(0x19,0x03);  // vref start
- OV7670_write(0x1A,0x7B);  // vref stop
- OV7670_write(0x03,0x0A);  // cambia vref
-
- 
- OV7670_write(0x33,0x0B);  //
- OV7670_write(0x69,0x00);   // abajo
- OV7670_write(0xB1,0x0C);  
- OV7670_write(0xB2, 0x0E);
- OV7670_write(0xB3,0x80);    
- 
+/*
+  OV7670_write(0x12, 0x00);  //COM7: Set QCIF and RGB Using COM7 and Color Bar    
+  OV7670_write(0x40,0xC0);        //COM15: Set RGB 565  
+  OV7670_write(0x11, 0x0A);       //CLKR: CSet internal clock to use external clock    
+  OV7670_write(0x0C, 0x04);       //COM3: Enable Scaler   
+  OV7670_write(0x14,0x6A);       
+  
+  OV7670_write(0x17, 0x16);      
+  OV7670_write(0x18, 0x04);     
+  */  
 }
 
 void get_cam_register(){
-  Serial.print ("0x12 ");   
   Serial.println(get_register_value(0x12), HEX); //COM7
-  Serial.print ("0x11 ");   
-  Serial.println(get_register_value(0x11), HEX); //
-  Serial.print ("0x0C ");   
-  Serial.println(get_register_value(0x0C), HEX); //
-  Serial.print ("0x3E ");   
-  Serial.println(get_register_value(0x3E), HEX); //
-  Serial.print ("0x40 ");   
-  Serial.println(get_register_value(0x40), HEX); //
-  Serial.print ("0x3A ");   
-  Serial.println(get_register_value(0x3A), HEX); //
-  Serial.print ("0x14 ");   
-  Serial.println(get_register_value(0x14), HEX);
- Serial.print ("0x17 ");   
-   Serial.println(get_register_value(0x17), HEX);
- Serial.print ("0x18 ");   
-   Serial.println(get_register_value(0x18), HEX);
-   Serial.print ("0x32 "); 
-  Serial.println(get_register_value(0x32), HEX);
-  Serial.print ("0x19 "); 
-  Serial.println(get_register_value(0x19), HEX);
-  Serial.print ("0x1A "); 
-  Serial.println(get_register_value(0x1a), HEX);
-  Serial.print ("0x03 "); 
-  Serial.println(get_register_value(0x03), HEX);
-  Serial.print ("0x0F "); 
-  Serial.println(get_register_value(0x0f), HEX);
-  Serial.print ("0x1E "); 
-  Serial.println(get_register_value(0x1e), HEX);
-  Serial.print ("0x33 "); 
-  Serial.println(get_register_value(0x33), HEX);
-  Serial.print ("0x3C "); 
-  Serial.println(get_register_value(0x3c), HEX);
-  Serial.print ("0x69 "); 
-  Serial.println(get_register_value(0x69), HEX);
-  Serial.print ("0x78 "); 
-  Serial.println(get_register_value(0x78), HEX);
+  Serial.println(get_register_value(0x11), HEX); //CLKRC
+  Serial.println(get_register_value(0x40), HEX); //COM15
+  Serial.println(get_register_value(0x0C), HEX); //COM3
+  Serial.println(get_register_value(0x42), HEX); //COM17
+  Serial.println(get_register_value(0x14), HEX); //COM9
+
+  Serial.println(get_register_value(0x17), HEX); 
+  Serial.println(get_register_value(0x18), HEX); 
 
 }
 
@@ -125,6 +93,7 @@ int I2C_write(int start, const byte *pData, int size){
 
 byte get_register_value(int register_address){
   byte data = 0;
+   Serial.println ("I2C read");   
   Wire.beginTransmission(OV7670_I2C_ADDRESS);
   Wire.write(register_address);
   Wire.endTransmission();
@@ -163,3 +132,4 @@ void set_color_matrix(){
 
 void loop(){
   
+ }
