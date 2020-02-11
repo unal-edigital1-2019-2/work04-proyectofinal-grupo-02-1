@@ -66,6 +66,8 @@ SALIDAS:
 [16:0] Addr: Address de escritura para la memoria RAM.
 Regwrite: Señal de escritura para la memoria RAM.
 
+![DIAGRAMA](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/Captura%20de%20datos.png)
+
 
 ### Generador de Reloj
 
