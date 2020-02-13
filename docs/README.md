@@ -52,6 +52,9 @@ SALIDAS:
 * PCLK: Reloj para sincronización con la cámara.
 * [7:0] D: Datos de salida de la cámara.
 
+![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/camara.png)
+
+
 #### Módulo de Captura
 
 Se trata de un circuito secuencial, una máquina de estados diseñada por nosotros para la captura de los datos que provienen de la Cámara OV7670. Este módulo trabaja con una una cantidad finita de estados (5), y el sincronizado con el reloj de salida de la cámara. El módulo está compuesto por el módulo de definición de estados, un contador, y un conjunto de flip flops que se encargan de guardar temporalmente los datos de entrada de la cámara, para ser enviados a la memoria RAM.
