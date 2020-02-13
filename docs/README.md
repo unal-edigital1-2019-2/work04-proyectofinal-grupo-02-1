@@ -34,7 +34,7 @@ Realizar la síntesis de hardware (ayudados por la aplicación Xilinx) para reci
 
 Haciendo uso de una cámara y una tarjeta programable, la cual a partir de una señal de botón controlada por el usuario, realiza captura de una imagen de 320 x 240 pixeles de resolución, que se puede visualizar en una pantalla con conexión VGA, donde si dicho botón es oprimido por el usuario continuamente, la toma de imagen de igual manera se realiza constante dando opción de visualizar video en dicha pantalla.
 
-![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/test_cam2.png)
+![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/esquema%20global.png)
 
 #### Camara OV7670
 
@@ -67,7 +67,7 @@ SALIDAS:
 * [7:0] Data: Datos de salida de pixel.
 * [16:0] Addr: Address de escritura para la memoria RAM.
 * Regwrite: Señal de escritura para la memoria RAM.
-
+![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/Captura%20de%20datos.png)
 
 #### Generador de Reloj
 
@@ -79,6 +79,8 @@ ENTRADAS:
 SALIDAS:
 * Reloj 24Mhz:Señal de reloj para sincronizar la escritura.
 * Reloj 25Mhz:Señal de reloj para sincronizar la lectura.
+
+![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/relog.png)
 
 #### Dual Port RAM
 
@@ -95,6 +97,7 @@ ENTRADAS:
 SALIDAS:
  *data_men: El valor de la posicion de lectura o  el valor del pixel solicitado por el módulo VGA 640x480 para visualizar en la pantalla.
 
+![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/dp%20ram.png)
 
 #### Módulo VGA
 
@@ -109,6 +112,8 @@ SALIDAS:
 * VGA_pos_X y VGA_pos_X: valores codificados de la posicion del pixel que se quiere leer, esta señal llegara al periférico Convert_ addr el cual solicitará la posición decodificada al modula DP_RAM. 
 * data_RGB322: Módulo que envía el valor del pixel en formato RGB322 al periférico de conversión de formato RGB322 to RGB444, donde este último envía el valor del pixel a la pantalla.
 * VGA_hsync_n y VGA_Vsync_n: señal de sincronizacion entre el módulo VGA640x480 y la pantalla.
+
+![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/driver_vga.png)
 
 ## Funcionamiento
 El proyecto final lleva a cabo el proceso de captura, guardado en memoria y envío de los datos a la salida VGA, haciendo uso de diferentes procesos que se llevan a cabo en cada uno de los respectivos módulos. Su funcionamineto se describe a continuacion de manera secuencial.
