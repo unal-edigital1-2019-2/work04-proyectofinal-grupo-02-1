@@ -30,6 +30,13 @@ Realizar la síntesis de hardware (ayudados por la aplicación Xilinx) para reci
 * Datasheet OV7670
 * Datasheet Nexys-4
 
+## Conexion de componentes
+
+El siguiente grafico muestra las conexiones a realizar para elfuncionamiento del proyeto. Por favor guarse de la hoja de datos de la Nexys-4 para identificar los puertos de entrada a la tarjeta. Las conexione se pueden realizar con ayuda de una protoboard. Las conexiones se realizan con los puertos JA y JB de la nexys respectivamente.
+
+![alt text](https://github.com/unal-edigital1-2019-2/work04-proyectofinal-grupo-02-1/blob/master/docs/figs/GRraph.jpg)
+
+
 ## Descripción de Modulos
 
 Haciendo uso de una cámara y una tarjeta programable, la cual a partir de una señal de botón controlada por el usuario, realiza captura de una imagen de 320 x 240 pixeles de resolución, que se puede visualizar en una pantalla con conexión VGA, donde si dicho botón es oprimido por el usuario continuamente, la toma de imagen de igual manera se realiza constante dando opción de visualizar video en dicha pantalla.
